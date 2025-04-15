@@ -20,15 +20,15 @@
         @endif
 
         <label>Vārds:
-            <input type="text" name="first_name" value="{{ old('first_name') }}" required>
+            <input type="text" name="first_name"  required>
         </label><br>
 
         <label>Uzvārds:
-            <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+            <input type="text" name="last_name"  required>
         </label><br>
 
         <label>E-pasts:
-            <input type="email" name="email" value="{{ old('email') }}" required>
+            <input type="email" name="email"  required>
         </label><br>
 
         <label>Parole:
@@ -39,7 +39,7 @@
             <input type="password" name="password_confirmation" required>
         </label><br><br>
 
-        <!-- Submit pogas pievienošana -->
+        
         <button type="submit">Reģistrēties</button>
     </form>
 </body>

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth; // Pieprasa Auth fasādi
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -18,15 +16,15 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        // Validācija
+       
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255',
-            'email'      => ['required', 'email', Rule::unique('users', 'email')],
-            'password'   => ['required', 'confirmed', Password::min(6)->numbers()->letters()->symbols()],
+            'email'      => 'required|email|unique:users,email',
+            'password'   => 'required|confirmed|min:8',
         ]);
 
-        // Lietotāja izveide
+        
         $user = User::create([
             'first_name' => $validated['first_name'],
             'last_name'  => $validated['last_name'],
@@ -34,10 +32,10 @@ class RegisterController extends Controller
             'password'   => Hash::make($validated['password']),
         ]);
 
-        // Lietotāja autentifikācija
-        Auth::login($user); // Autentificē lietotāju pēc veiksmīgas reģistrācijas
+        
+        Auth::login($user);
 
-        // Novirzām uz sākuma lapu pēc veiksmīgas reģistrācijas un autentifikācijas
+        
         return redirect('/');
     }
 }
