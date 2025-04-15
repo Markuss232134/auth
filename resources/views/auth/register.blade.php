@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reģistrācija</title>
 </head>
 <body>
-    <h1>Registreties</h1>
+    <h1>Reģistrēties</h1>
+
+    <form action="{{ route('register.store') }}" method="POST">
+        @csrf
+
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
+        <label>Vārds:
+            <input type="text" name="first_name" value="{{ old('first_name') }}" required>
+        </label><br>
+
+        <label>Uzvārds:
+            <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+        </label><br>
+
+        <label>E-pasts:
+            <input type="email" name="email" value="{{ old('email') }}" required>
+        </label><br>
+
+        <label>Parole:
+            <input type="password" name="password" required>
+        </label><br>
+
+        <label>Apstiprini paroli:
+            <input type="password" name="password_confirmation" required>
+        </label><br><br>
+
+        <!-- Submit pogas pievienošana -->
+        <button type="submit">Reģistrēties</button>
+    </form>
 </body>
 </html>
